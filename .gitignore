@@ -1,0 +1,44 @@
+# =============================================================================
+# YTRecipe Agent — .gitignore
+# =============================================================================
+
+# --- Secrets & Environment ---
+.env
+.env.*
+!.env.example
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.whl
+
+# --- Virtual Environments ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Pipeline Output ---
+output/
+
+# --- Redis Dump ---
+dump.rdb
+
+# --- IDE & OS ---
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+*.log
+logs/
