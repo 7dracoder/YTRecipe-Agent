@@ -1,0 +1,54 @@
+{
+  "recipe": {
+    "name": "Sticky Barbecued Pork Ribs with Jacket Potatoes and Chive Sour Cream",
+    "prep_time_minutes": 30,
+    "cook_time_minutes": 200,
+    "servings": 4,
+    "calories_per_serving": 685,
+    "ingredients": [
+      "2 pounds pork ribs",
+      "1 onion, quartered (divided use)",
+      "3 cloves garlic (divided use)",
+      "1 teaspoon fennel seeds (divided use)",
+      "2 whole star anise (divided use)",
+      "2 whole red chili peppers",
+      "1 cup granulated sugar",
+      "1 cup ketchup",
+      "1/4 cup dark soy sauce",
+      "1/4 cup chipotle sauce",
+      "4 large russet potatoes",
+      "1 cup heavy cream",
+      "1 teaspoon salt",
+      "2 tablespoons lemon juice",
+      "2 tablespoons fresh chives, chopped",
+      "2 tablespoons butter (for potatoes)"
+    ],
+    "instructions": [
+      "Place the pork ribs in a large pot or braising pan. Add half of the quartered onion, half the garlic cloves, half the fennel seeds, and 1 star anise to the pot.",
+      "Fill the pot with enough water to cover the ribs completely. Bring to a boil, then reduce heat to low and simmer gently for 3 hours until the meat is tender and nearly falling off the bone.",
+      "Meanwhile, preheat oven to 400\u00b0F (200\u00b0C). Scrub the potatoes and prick them several times with a fork. Rub with butter and salt, then bake for 60-75 minutes until tender.",
+      "While the ribs braise, make the barbecue sauce: In a medium saucepan, combine the remaining onion (chopped), remaining garlic (minced), remaining fennel seeds, and remaining star anise.",
+      "Add the 2 whole red chili peppers (seeds and all), sugar, ketchup, dark soy sauce, and chipotle sauce to the pan. Stir well to combine.",
+      "Bring the sauce to a simmer over medium heat, stirring until all the sugar dissolves. Then increase heat and bring to a boil for 2-3 minutes.",
+      "Remove from heat and transfer the entire mixture (including star anise and chilies) to a blender. Blend until smooth and thick. Set aside.",
+      "When ribs are done braising, remove from the liquid and pat dry. Cut the rack into individual ribs or 2-rib portions.",
+      "Increase oven temperature to 425\u00b0F (220\u00b0C). Brush the ribs generously with the barbecue sauce, coating all sides.",
+      "Place the glazed ribs on a baking sheet lined with foil. Roast for 20 minutes, basting with more sauce halfway through, until sticky and caramelized.",
+      "While ribs finish roasting, make the sour cream: In a bowl, whisk the heavy cream with salt and lemon juice until it thickens slightly (about 2-3 minutes).",
+      "Fold in the chopped chives. Taste and adjust seasoning if needed.",
+      "Remove ribs from oven and let rest for 5 minutes. Split open the baked potatoes and fluff with a fork.",
+      "Serve the sticky barbecued ribs alongside the jacket potatoes topped with generous dollops of chive sour cream."
+    ],
+    "nutrition": {
+      "calories_per_serving": 685,
+      "protein_g": 38,
+      "carbohydrates_g": 72,
+      "fat_g": 28,
+      "fiber_g": 5,
+      "sugar_g": 54,
+      "sodium_mg": 1240
+    },
+    "storage": "Store leftover ribs in an airtight container in the refrigerator for up to 3 days. Extra barbecue sauce can be refrigerated for up to 1 week. Reheat ribs in a 350\u00b0F oven for 15-20 minutes until warmed through. The chive sour cream is best made fresh but can be stored for 2 days in the refrigerator.",
+    "serving_suggestions": "These finger-licking ribs are perfect for a lazy weekend meal. Serve with extra napkins! The dish pairs wonderfully with a cold local craft beer or porter. For additional sides, consider coleslaw, corn on the cob, or a simple green salad. The ribs are also fantastic for casual entertaining - let guests help themselves and enjoy the relaxed, hands-on dining experience. Any leftover meat can be shredded and used in sandwiches, tacos, or over rice."
+  }
+}
