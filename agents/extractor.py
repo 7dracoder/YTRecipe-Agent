@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 TTL = int(os.getenv("REDIS_TTL_EXTRACTION", 86400))
 
 SYSTEM_PROMPT = """
@@ -49,6 +48,7 @@ def run_extraction(transcript_data: dict) -> dict:
 
     logger.info("🤖 Claude #1: Extracting ingredients...")
 
+    client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
     message = client.messages.create(
         model=os.getenv("CLAUDE_MODEL", "claude-sonnet-4-5"),
         max_tokens=4096,

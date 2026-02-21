@@ -1,8 +1,17 @@
+import os
 import streamlit as st
 import json
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Inject Streamlit Cloud secrets into os.environ so all agents can read them via os.getenv()
+try:
+    for _k, _v in st.secrets.items():
+        if isinstance(_v, str):
+            os.environ.setdefault(_k, _v)
+except Exception:
+    pass
 
 #Page Config
 st.set_page_config(
@@ -64,7 +73,7 @@ with st.sidebar:
     # Save preferences to Redis
     if st.button("💾 Save Preferences", use_container_width=True):
         try:
-            from redis.state import save_user_preferences
+            from app_redis.state import save_user_preferences
             prefs = {
                 "dietary":        dietary,
                 "allergies":      allergies,
@@ -304,9 +313,12 @@ if st.session_state.recipe_done and st.session_state.pipeline_results:
                 if isinstance(ing, dict):
                     qty  = ing.get("quantity", "")
                     unit = ing.get("unit", "")
-                    name = ing.get("name", "")
+                    name = (ing.get("name") or ing.get("ingredient")
+                            or ing.get("normalized_name") or ing.get("item")
+                            or ing.get("description") or "")
                     opt  = " *(optional)*" if ing.get("optional") else ""
-                    st.markdown(f"- **{qty} {unit}** {name}{opt}")
+                    parts = " ".join(filter(None, [str(qty), str(unit), name])).strip()
+                    st.markdown(f"- {parts}{opt}")
                 else:
                     st.markdown(f"- {ing}")
 

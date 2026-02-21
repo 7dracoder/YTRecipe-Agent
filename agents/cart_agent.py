@@ -9,8 +9,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-
 SYSTEM_PROMPT = """
 You are a grocery shopping AI. Given a list of search results for each ingredient,
 select the BEST product match.
@@ -47,6 +45,7 @@ def run_cart_mapping(normalized_data: dict, user_id: str = "default") -> dict:
 
     logger.info(f"🛒 Claude #3: Mapping {len(ingredients)} items to Instacart products...")
 
+    client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
     search_results = []
     for item in ingredients:
         results = search_product(item["normalized_name"])

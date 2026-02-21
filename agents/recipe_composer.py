@@ -7,8 +7,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-
 SYSTEM_PROMPT = """
 You are a professional recipe writer AI. Generate a clean, complete, 
 publication-ready recipe from the provided ingredients, transcript, and nutrition data.
@@ -17,7 +15,7 @@ Include:
 - Recipe name
 - Prep time and cook time
 - Serving size
-- Clean ingredient list with quantities
+- Ingredients as plain strings (e.g. "2 tablespoons olive oil", "3 cloves garlic, minced") — NOT objects or dicts
 - Step-by-step instructions (inferred from transcript)
 - Calories per serving
 - Full nutrition info
@@ -32,7 +30,7 @@ Return ONLY valid JSON in this format:
     "cook_time_minutes": 30,
     "servings": 4,
     "calories_per_serving": 450,
-    "ingredients": [],
+    "ingredients": ["2 tablespoons olive oil", "3 cloves garlic, minced"],
     "instructions": ["Step 1...", "Step 2..."],
     "nutrition": {},
     "storage": "string",
@@ -48,6 +46,7 @@ def run_recipe_composition(transcript: dict, ingredients: dict, nutrition: dict)
     """
     logger.info("📖 Claude #4: Composing final recipe...")
 
+    client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
     message = client.messages.create(
         model=os.getenv("CLAUDE_MODEL", "claude-sonnet-4-5"),
         max_tokens=8192,

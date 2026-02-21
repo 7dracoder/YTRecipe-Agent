@@ -8,8 +8,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
-
 SYSTEM_PROMPT = """
 You are a grocery normalization AI. Convert raw ingredient names 
 into clean, standardized grocery-store product names.
@@ -50,6 +48,7 @@ def run_normalization(extracted_data: dict) -> dict:
 
     logger.info("🔧 Claude #2: Normalizing ingredients...")
 
+    client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
     message = client.messages.create(
         model=os.getenv("CLAUDE_MODEL", "claude-sonnet-4-5"),
         max_tokens=4096,
