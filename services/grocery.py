@@ -3,13 +3,10 @@ import requests
 import base64
 from dotenv import load_dotenv
 from app_redis.cache import get_cache, set_cache, make_key
+from utils.config import get_secret
 
 load_dotenv()
 
-KROGER_BASE = os.getenv("KROGER_BASE_URL")
-KROGER_ID = os.getenv("KROGER_CLIENT_ID")
-KROGER_SECRET = os.getenv("KROGER_CLIENT_SECRET")
-OFF_URL = os.getenv("OPEN_FOOD_FACTS_URL")
 TTL = int(os.getenv("REDIS_TTL_GROCERY", 3600))
 
 
@@ -27,12 +24,16 @@ def _get_kroger_token() -> str:
     if cached:
         return cached["token"]
 
+    kroger_id     = get_secret("KROGER_CLIENT_ID")
+    kroger_secret = get_secret("KROGER_CLIENT_SECRET")
+    kroger_base   = get_secret("KROGER_BASE_URL")
+
     credentials = base64.b64encode(
-        f"{KROGER_ID}:{KROGER_SECRET}".encode()
+        f"{kroger_id}:{kroger_secret}".encode()
     ).decode()
 
     resp = requests.post(
-        f"{KROGER_BASE}/connect/oauth2/token",
+        f"{kroger_base}/connect/oauth2/token",
         headers={
             "Authorization": f"Basic {credentials}",
             "Content-Type": "application/x-www-form-urlencoded"
@@ -65,9 +66,10 @@ def search_kroger(query: str) -> list:
     print(f"🔍 Searching Kroger: '{query}'")
 
     try:
-        token = _get_kroger_token()
+        token       = _get_kroger_token()
+        kroger_base = get_secret("KROGER_BASE_URL")
         resp = requests.get(
-            f"{KROGER_BASE}/products",
+            f"{kroger_base}/products",
             headers={"Authorization": f"Bearer {token}"},
             params={
                 "filter.term": query,
@@ -118,8 +120,9 @@ def search_open_food_facts(query: str) -> list:
     print(f"🔍 Searching Open Food Facts: '{query}'")
 
     try:
+        off_url = get_secret("OPEN_FOOD_FACTS_URL", "https://world.openfoodfacts.org/api/v2")
         resp = requests.get(
-            OFF_URL,
+            off_url,
             params={
                 "search_terms": query,
                 "search_simple": 1,

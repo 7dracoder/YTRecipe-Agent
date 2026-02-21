@@ -2,9 +2,9 @@ import os
 import streamlit as st
 import json
 from dotenv import load_dotenv
+from utils.config import get_secret
 
 load_dotenv()
-
 
 #Page Config
 st.set_page_config(
@@ -13,6 +13,15 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# Secrets check — fail fast with a clear message instead of a cryptic error later
+if not get_secret("ANTHROPIC_API_KEY"):
+    st.error(
+        "**ANTHROPIC_API_KEY is missing.** "
+        "Go to your Streamlit app → Settings → Secrets and add:\n\n"
+        "```toml\nANTHROPIC_API_KEY = \"sk-ant-...\"\n```"
+    )
+    st.stop()
 
 #Load CSS
 def load_css():

@@ -56,7 +56,7 @@ def run_cart_mapping(normalized_data: dict, user_id: str = "default") -> dict:
         })
 
     message = client.messages.create(
-        model=os.getenv("CLAUDE_MODEL", "claude-sonnet-4-5"),
+        model=get_secret("CLAUDE_MODEL", "claude-sonnet-4-6"),
         max_tokens=4096,
         system=SYSTEM_PROMPT,
         messages=[
@@ -75,8 +75,26 @@ def run_cart_mapping(normalized_data: dict, user_id: str = "default") -> dict:
     try:
         cleaned = re.sub(r"```(?:json)?|```", "", raw_response).strip()
         result = json.loads(cleaned)
+
+        # Build a lookup of ingredient → source from search_results
+        source_map = {
+            sr["ingredient"]: sr["search_results"][0].get("source", "kroger")
+            for sr in search_results
+            if sr.get("search_results")
+        }
+
+        # Enrich each cart item with source and calculate total
+        total = 0.0
+        for item in result.get("cart", []):
+            item.setdefault("source", source_map.get(item.get("ingredient", ""), "kroger"))
+            price = item.get("price") or 0.0
+            total += float(price)
+
+        result["estimated_total"] = round(total, 2)
+        result["missing_items"]   = result.get("missing_items", [])
+
         logger.success(f"✅ Cart mapped with {len(result.get('cart', []))} items")
         return result
     except json.JSONDecodeError as e:
         logger.error(f"❌ Cart mapping JSON parse failed: {e}")
-        return {"cart": [], "error": str(e)}
+        return {"cart": [], "missing_items": [], "estimated_total": 0.0, "error": str(e)}
