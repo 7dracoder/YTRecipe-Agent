@@ -5,21 +5,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Inject Streamlit Cloud secrets into os.environ so all agents can read them via os.getenv()
-_SECRET_KEYS = [
-    "ANTHROPIC_API_KEY", "CLAUDE_MODEL",
-    "REDIS_URL",
-    "USDA_API_KEY", "USDA_BASE_URL",
-    "KROGER_CLIENT_ID", "KROGER_CLIENT_SECRET", "KROGER_BASE_URL",
-    "OPEN_FOOD_FACTS_URL",
-    "REDIS_TTL_TRANSCRIPT", "REDIS_TTL_EXTRACTION",
-    "REDIS_TTL_NUTRITION", "REDIS_TTL_GROCERY",
-]
-for _k in _SECRET_KEYS:
-    try:
-        os.environ[_k] = st.secrets[_k]
-    except KeyError:
-        pass
 
 #Page Config
 st.set_page_config(

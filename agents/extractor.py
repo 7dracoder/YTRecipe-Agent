@@ -5,6 +5,7 @@ import anthropic
 from loguru import logger
 from app_redis.cache import get_cache, set_cache, make_key
 from dotenv import load_dotenv
+from utils.config import get_secret
 
 load_dotenv()
 
@@ -48,7 +49,7 @@ def run_extraction(transcript_data: dict) -> dict:
 
     logger.info("🤖 Claude #1: Extracting ingredients...")
 
-    client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    client = anthropic.Anthropic(api_key=get_secret("ANTHROPIC_API_KEY"))
     message = client.messages.create(
         model=os.getenv("CLAUDE_MODEL", "claude-sonnet-4-5"),
         max_tokens=4096,

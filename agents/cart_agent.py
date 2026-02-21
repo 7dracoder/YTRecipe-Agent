@@ -6,6 +6,7 @@ from loguru import logger
 from services.grocery import search_product
 from app_redis.state import get_user_preferences
 from dotenv import load_dotenv
+from utils.config import get_secret
 
 load_dotenv()
 
@@ -45,7 +46,7 @@ def run_cart_mapping(normalized_data: dict, user_id: str = "default") -> dict:
 
     logger.info(f"🛒 Claude #3: Mapping {len(ingredients)} items to Instacart products...")
 
-    client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    client = anthropic.Anthropic(api_key=get_secret("ANTHROPIC_API_KEY"))
     search_results = []
     for item in ingredients:
         results = search_product(item["normalized_name"])

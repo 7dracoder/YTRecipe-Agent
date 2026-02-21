@@ -4,6 +4,7 @@ import json
 import anthropic
 from loguru import logger
 from dotenv import load_dotenv
+from utils.config import get_secret
 
 load_dotenv()
 
@@ -46,7 +47,7 @@ def run_recipe_composition(transcript: dict, ingredients: dict, nutrition: dict)
     """
     logger.info("📖 Claude #4: Composing final recipe...")
 
-    client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+    client = anthropic.Anthropic(api_key=get_secret("ANTHROPIC_API_KEY"))
     message = client.messages.create(
         model=os.getenv("CLAUDE_MODEL", "claude-sonnet-4-5"),
         max_tokens=8192,
