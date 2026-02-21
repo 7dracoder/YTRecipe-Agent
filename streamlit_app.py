@@ -19,7 +19,7 @@ def load_css():
 
 load_css()
 
-#Session State Init
+#Session State Initstrea
 if "pipeline_results" not in st.session_state:
     st.session_state.pipeline_results = {}
 if "current_step"    not in st.session_state:
@@ -301,11 +301,14 @@ if st.session_state.recipe_done and st.session_state.pipeline_results:
         for i, ing in enumerate(ingredients):
             col = ing_cols[0] if i < half else ing_cols[1]
             with col:
-                qty  = ing.get("quantity", "")
-                unit = ing.get("unit", "")
-                name = ing.get("name", "")
-                opt  = " *(optional)*" if ing.get("optional") else ""
-                st.markdown(f"- **{qty} {unit}** {name}{opt}")
+                if isinstance(ing, dict):
+                    qty  = ing.get("quantity", "")
+                    unit = ing.get("unit", "")
+                    name = ing.get("name", "")
+                    opt  = " *(optional)*" if ing.get("optional") else ""
+                    st.markdown(f"- **{qty} {unit}** {name}{opt}")
+                else:
+                    st.markdown(f"- {ing}")
 
         # Instructions
         st.markdown("### 👨‍🍳 Instructions")
